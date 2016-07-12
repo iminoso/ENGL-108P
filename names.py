@@ -4,11 +4,11 @@ import json
 
 character_counter = dict()
 
-output_file = open('outputs/names_count.txt', 'w+')
-# books = list(1, 2, 3, 4, 5, 6, 7)
-books = [2]
+books = list(1, 2, 3, 4, 5, 6, 7)
+
 for i in books:
     print 'Book {}'.format(i)
+    output_file = open('outputs/names_count_book_' + str(i) + '.txt', 'w+')
     book_name = "book_%s.txt" % (str(i))
     book = open(os.path.join('dataset', "book_%s.txt" % (str(i)))).read()
     for sentences in nltk.sent_tokenize(book.decode("utf-8")):
@@ -20,4 +20,5 @@ for i in books:
                     character_counter[name] += 1
                 else:
                     character_counter[name] = 1
-print >>output_file, json.dumps(character_counter, sort_keys=True, indent=2)
+    print >>output_file, json.dumps(
+        character_counter, sort_keys=True, indent=2)
