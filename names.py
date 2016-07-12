@@ -5,8 +5,7 @@ import json
 character_counter = dict()
 
 books = list([1, 2, 3, 4, 5, 6, 7])
-
-for i in books:
+or i in books:
     print 'Book {}'.format(i)
     output_file = open('outputs/names_count_book_' + str(i) + '.txt', 'w+')
     book_name = "book_%s.txt" % (str(i))
