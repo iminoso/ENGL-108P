@@ -1,11 +1,14 @@
 import nltk
 import os
 import copy
+import json
 
 character_counter = dict()
-list_of_slices = set()
+list_of_slices = []
 adding_to_slices = []
 rolling_words = []
+
+output_file = open('outputs/relations.txt', 'w+')
 
 # books = list([1, 2, 3, 4, 5, 6, 7])
 books = [1]
@@ -20,11 +23,12 @@ for i in books:
     for t in tokens:
         word = str(t.encode('utf-8'))
 
-        for word_slice in adding_to_slices:
-            if len(word_slice) == 100:
-                list_of_slices.add(tuple(word_slice))
+        for i, word_slice in enumerate(adding_to_slices):
+            if len(word_slice[0]) == 100:
+                if word_slice[1]:
+                    list_of_slices.append(word_slice[0])
             else:
-                word_slice.append(word)
+                adding_to_slices[i][0].append(word)
 
         if len(rolling_words) < 50:
             rolling_words.append(word)
@@ -35,7 +39,7 @@ for i in books:
         if 'Harry' in word:
             word_slice = []
             word_slice = rolling_words + ['Harry']
-            adding_to_slices.append(word_slice)
+            adding_to_slices.append([word_slice, True])
 
-
-print list_of_slices
+print >>output_file, json.dumps(
+    list_of_slices, sort_keys=True, indent=2)
