@@ -4,18 +4,21 @@ import json
 
 character_counter = dict()
 
-# books = list([1, 2, 3, 4, 5, 6, 7])
-books = [1]
+books = list([1, 2, 3, 4, 5, 6, 7])
+entire_text = ''
 for i in books:
     print 'Book {}'.format(i)
     book_name = "book_%s.txt" % (str(i))
     book = open(os.path.join('dataset', "book_%s.txt" % (str(i)))).read()
-    # book.dispersion_plot(["Harry", "Voldemort"])
-    tokens = nltk.word_tokenize(book.decode('utf-8'))
-    mytext = nltk.Text(tokens)
-    words = ["Harry", "Ron", "Hermione", "Malfoy",
-             "Dumbledore", "Voldemort", "Sirius", "Hagrid", "Snape"]
-    nltk.draw.dispersion.dispersion_plot(
-        mytext, words, ignore_case=False, title='Word Dispersion in Philosoper\'s Stone')
-    # mytext.dispersion_plot(["Harry", "Ron", "Hermione", "Malfoy",
-                            # "Dumbledore", "Voldemort", "Sirius", "Hagrid", "Snape"])
+    entire_text += book
+
+tokens = nltk.word_tokenize(entire_text.decode('utf-8'))
+mytext = nltk.Text(tokens)
+words = [
+    "Sirius", "Viktor", "Cedric", "Rita",
+    "Bellatrix", "Tonks", "Dobby", "Dudley", "Cho"
+]
+nltk.draw.dispersion.dispersion_plot(
+    mytext, words, ignore_case=False,
+    title='Word Dispersion in the Harry Potter Series'
+)
