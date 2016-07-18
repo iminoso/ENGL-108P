@@ -17,7 +17,9 @@ book_names = [
     'Deathly Hallows'
 ]
 count = {}
-pos_type = 'VB'
+pos_type = 'NN'
+verbs = ['VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ']
+adverbs = ['RB', 'RBR', 'RBS']
 for i in books:
     book_name = "book_%s.txt" % (str(i))
     print book_name
@@ -30,19 +32,9 @@ for i in books:
         # decode
         text = unicodedata.normalize('NFKD', text).encode(
             'ascii', 'ignore').replace('\n\n', ' ')
-        if text in count and text_type == pos_type:
+        if text in count and text_type in verbs:
             count[text] += 1
         else:
             count[text] = 1
 
 print sorted(count.items(), key=lambda item: item[1])
-
-# print json.dumps(
-#     most_neg_sent, sort_keys=True, indent=2
-# )
-# print "{},{},{},{}".format(
-#     book_names[i - 1],
-#     (count['neut'] / float(len(sent_tokens))),
-#     (count['pos'] / float(len(sent_tokens))),
-#     (count['neg'] / float(len(sent_tokens)))
-# )
